@@ -15,17 +15,17 @@
 // @homepageURL  https://github.com/kudryavka1013/bilibili-darkmode
 // @namespace https://greasyfork.org/users/234510
 // ==/UserScript==
-
-(function () {
-  "use strict";
-  const url = window.location.href;
-  const urlSet = {
-    home: "https://www.bilibili.com",
-    search: "https://search.bilibili.com",
-    space: "https://space.bilibili.com",
-  };
-  // 全局色彩样式覆写
-  const globalColorStyle = `
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  (function () {
+    "use strict";
+    const url = window.location.href;
+    const urlSet = {
+      home: "https://www.bilibili.com",
+      search: "https://search.bilibili.com",
+      space: "https://space.bilibili.com",
+    };
+    // 全局色彩样式覆写
+    const globalColorStyle = `
     :root {
       --bg1: #121212 !important;
       --bg1_float: #1A1A1A !important;
@@ -47,19 +47,19 @@
       --Or5: #FF7F24 !important;
     }
   `;
-  // 标准背景底色
-  const stdBackground = `background-color: var(--bg1_float) !important;`;
-  // 背景底色
-  const backgroundSelector = [
-    "html body", // 全局
-  ];
-  GM_addStyle(globalColorStyle);
-  // 测试底色覆盖
-  GM_addStyle(`${backgroundSelector.join(",")} {
+    // 标准背景底色
+    const stdBackground = `background-color: var(--bg1_float) !important;`;
+    // 背景底色
+    const backgroundSelector = [
+      "html body", // 全局
+    ];
+    GM_addStyle(globalColorStyle);
+    // 测试底色覆盖
+    GM_addStyle(`${backgroundSelector.join(",")} {
     ${stdBackground}
   }`);
-  // 视频播放页处理
-  GM_addStyle(`
+    // 视频播放页处理
+    GM_addStyle(`
     #bilibili-player-placeholder {
       box-shadow: none !important;
     }
@@ -71,8 +71,8 @@
       border-color: var(--line_regular) !important;
      }
   `);
-  // 首页
-  GM_addStyle(`
+    // 首页
+    GM_addStyle(`
     #nav-searchform:hover {
       border: 1px solid var(--bg3) !important;
     }
@@ -86,15 +86,15 @@
       border-top: none !important;
     }
   `);
-  // 视频卡片icon
-  GM_addStyle(`
+    // 视频卡片icon
+    GM_addStyle(`
     .bili-video-card__info--icon-text {
       background-color: initial !important;
       box-shadow: 0 0 1px 1px var(--Or5);
     }
   `);
-  // headerBar收藏夹
-  GM_addStyle(`
+    // headerBar收藏夹
+    GM_addStyle(`
     .favorite-panel-popover__nav .tab-item--active {
       color: #E6E6E6;
     }
@@ -105,8 +105,8 @@
       box-shadow: 0 2px 4px rgba(255,255,255,.08) !important;
     }
   `);
-  // 搜索页
-  GM_addStyle(`
+    // 搜索页
+    GM_addStyle(`
     .vui_button--tab:active, .vui_button--tab.vui_button--active, .vui_button--tab.vui_button--active:hover {
       background-color: var(--graph_bg_thick) !important;
     }
@@ -117,8 +117,8 @@
       color: #FFF !important;
     }
   `);
-  // 评论区
-  GM_addStyle(`
+    // 评论区
+    GM_addStyle(`
     .reply-box .box-normal .reply-box-send .send-text {
       color: var(--text2) !important;
     }
@@ -168,8 +168,8 @@
       box-shadow: 0 0 5px #fff3 !important;
     }
   `);
-  // 动态首页
-  GM_addStyle(`
+    // 动态首页
+    GM_addStyle(`
     #app .bg {
       background-image: none !important;
       background-color: var(--bg1_float) !important;
@@ -201,8 +201,8 @@
       color: var(--text2) !important;
     }
   `);
-  // 个人空间
-  GM_addStyle(`
+    // 个人空间
+    GM_addStyle(`
     #app.owner,
     #app.fans,
     #app.visitor {
@@ -524,22 +524,23 @@
     }
     
   `);
-  // 新版个人空间侧边栏
-  GM_addStyle(`
+    // 新版个人空间侧边栏
+    GM_addStyle(`
     .side-nav .side-nav__item:hover {
       background-color: var(--graph_bg_thick) !important;
     }
   `);
-  // 新版历史记录
-  GM_addStyle(`
+    // 新版历史记录
+    GM_addStyle(`
     .history-record .radio-filter__item.radio-filter__item--active {
       color: #ffffff;
     }
   `);
-  // 新版收藏
-  GM_addStyle(`
+    // 新版收藏
+    GM_addStyle(`
     .vui_sidebar .fav-sidebar-item .vui_sidebar-item:hover {
       background-color: var(--graph_bg_thick) !important;
     }
   `);
-})();
+  })();
+}
